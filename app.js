@@ -19,6 +19,12 @@ require("./config")(app);
 const allRoutes = require("./routes/index.routes");
 app.use("/api", allRoutes);
 
+const tripRouter = require('./routes/trip.routes');     // <== IMPORT
+app.use('/api', tripRouter);                               // <== ADD
+
+const placeRouter = require('./routes/place.routes');    // <== IMPORT
+app.use('/api', placeRouter);                        // <== ADD
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
