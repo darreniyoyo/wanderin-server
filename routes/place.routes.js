@@ -8,12 +8,9 @@ const Trip = require('../models/Trip.model');
 
 //  POST /api/places  -  Creates a new place
 router.post('/places', (req, res, next) => {
-  const { title, description, tripId } = req.body;
+  const { title, description } = req.body;
 
-  Place.create({ title, description, trip: tripId })
-    .then(newPlace => {
-      return Trip.findByIdAndUpdate(tripId, { $push: { places: newPlace._id } } );
-    })
+  Place.create({ title, description })
     .then(response => res.json(response))
     .catch(err => res.json(err));
 });

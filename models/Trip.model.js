@@ -2,9 +2,15 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const tripSchema = new Schema({
-  title: String,
+  title: String, //required
   description: String,
-  place: [{ type: Schema.Types.ObjectId, ref: 'Place' }]
+  places: [{ type: Schema.Types.ObjectId, ref: 'Place' }]
+
+//   stages: [{
+//     location: [{ type: Schema.Types.ObjectId, ref: 'Place' }],
+//     days: Number
+//   }]
+
   // owner will be added later on
 });
 
