@@ -23,7 +23,12 @@ const tripRouter = require('./routes/trip.routes');     // <== IMPORT
 app.use('/api', tripRouter);                               // <== ADD
 
 const placeRouter = require('./routes/place.routes');    // <== IMPORT
-app.use('/api', placeRouter);                        // <== ADD
+app.use('/api', placeRouter);        
+
+const authRoutes = require('./routes/auth.routes');     // <== IMPORT
+app.use('/api', authRoutes);   
+
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
