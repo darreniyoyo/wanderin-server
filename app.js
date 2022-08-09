@@ -9,6 +9,8 @@ require("./db");
 // https://www.npmjs.com/package/express
 const express = require("express");
 
+const { isAuthenticated } = require("./middleware/jwt.middleware");
+
 const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
@@ -20,10 +22,10 @@ const allRoutes = require("./routes/index.routes");
 app.use("/api", allRoutes);
 
 const tripRouter = require('./routes/trip.routes');     // <== IMPORT
-app.use('/api', tripRouter);                               // <== ADD
+app.use('/api', isAuthenticated, tripRouter);                               // <== ADD
 
 const placeRouter = require('./routes/place.routes');    // <== IMPORT
-app.use('/api', placeRouter);        
+app.use('/api', isAuthenticated, placeRouter);        
 
 const authRoutes = require('./routes/auth.routes');     // <== IMPORT
 app.use('/api', authRoutes);   

@@ -10,7 +10,7 @@ const Place = require('../models/Place.model');
 
 
 //READ list of trips 
-router.get('/trips', (req, res, next) => {
+router.get('/trips', isAuthenticated, (req, res, next) => {
     Trip.find()
         .populate("places")
         .then(allTrips => {
@@ -32,7 +32,7 @@ router.post('/trips', isAuthenticated, (req, res, next) => {
 
 
 //READ trip details
-router.get('/trips/:tripId', (req, res, next) => {
+router.get('/trips/:tripId', isAuthenticated, (req, res, next) => {
     const { tripId } = req.params;
 
     //validate tripId
