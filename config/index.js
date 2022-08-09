@@ -13,14 +13,6 @@ const cookieParser = require("cookie-parser");
 // unless the request if from the same domain, by default express wont accept POST requests
 const cors = require("cors");
 
-// ℹ️ Session middleware for authentication
-// https://www.npmjs.com/package/express-session
-const session = require("express-session");
-
-// ℹ️ MongoStore in order to save the user session in the database
-// https://www.npmjs.com/package/connect-mongo
-const MongoStore = require("connect-mongo");
-
 // Connects the mongo uri to maintain the same naming structure
 const MONGO_URI = require("../utils/consts");
 
@@ -45,4 +37,4 @@ module.exports = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
-  }
+};
