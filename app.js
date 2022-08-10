@@ -18,8 +18,8 @@ require("./config")(app);
 
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
-const allRoutes = require("./routes/index.routes");
-app.use("/api", allRoutes);
+const authRoutes = require('./routes/auth.routes');     // <== IMPORT
+app.use('/api', authRoutes);   
 
 const tripRouter = require('./routes/trip.routes');     // <== IMPORT
 app.use('/api', isAuthenticated, tripRouter);                               // <== ADD
@@ -27,8 +27,6 @@ app.use('/api', isAuthenticated, tripRouter);                               // <
 const placeRouter = require('./routes/place.routes');    // <== IMPORT
 app.use('/api', isAuthenticated, placeRouter);        
 
-const authRoutes = require('./routes/auth.routes');     // <== IMPORT
-app.use('/api', authRoutes);   
 
 
 

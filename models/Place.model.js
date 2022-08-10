@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const placeSchema = new Schema({
-  title: String, // required
+  title: {type: String, required: true, },
   description: String,
 });
 

@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const mongoose = require('mongoose');
 
-const {isAuthenticated} = require("../middleware/jwt.middleware")
 
 const Trip = require('../models/Trip.model');
 const Place = require('../models/Place.model');
@@ -10,7 +9,7 @@ const Place = require('../models/Place.model');
 
 
 //READ list of trips 
-router.get('/trips', isAuthenticated, (req, res, next) => {
+router.get('/trips', (req, res, next) => {
     Trip.find()
         .populate("places")
         .then(allTrips => {
@@ -21,10 +20,10 @@ router.get('/trips', isAuthenticated, (req, res, next) => {
 
 
 //CREATE new trip
-router.post('/trips', isAuthenticated, (req, res, next) => {
-    const { title, description } = req.body;
+router.post('/trips', (req, res, next) => {
+    const { title, description, days, places } = req.body;
 
-    Trip.create({ title, description, places: [] })
+    Trip.create({ title, description, days, places })
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });
@@ -32,7 +31,7 @@ router.post('/trips', isAuthenticated, (req, res, next) => {
 
 
 //READ trip details
-router.get('/trips/:tripId', isAuthenticated, (req, res, next) => {
+router.get('/trips/:tripId', (req, res, next) => {
     const { tripId } = req.params;
 
     //validate tripId
@@ -52,7 +51,7 @@ router.get('/trips/:tripId', isAuthenticated, (req, res, next) => {
 
 
 //UPDATE trip
-router.put('/trips/:tripId', isAuthenticated, (req, res, next) => {
+router.put('/trips/:tripId', (req, res, next) => {
     const { tripId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(tripId)) {
@@ -68,7 +67,7 @@ router.put('/trips/:tripId', isAuthenticated, (req, res, next) => {
 
 
 //DELETE trip
-router.delete('/trips/:tripId', isAuthenticated, (req, res, next) => {
+router.delete('/trips/:tripId', (req, res, next) => {
     const { tripId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(tripId)) {

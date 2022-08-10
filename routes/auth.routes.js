@@ -16,9 +16,10 @@ const User = require("../models/User.model");
 
 
 router.post("/signup", (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
+  
 
-  if (!username) {
+  if (!name) {
     return res
       .status(400)
       .json({ errorMessage: "Please provide your username." });
@@ -42,7 +43,7 @@ router.post("/signup", (req, res) => {
 
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ name: username }).then((found) => {
+  User.findOne({ name }).then((found) => {
     // If the user is found, send the message username is taken
     if (found) {
       return res.status(400).json({ errorMessage: "Username already taken." });
@@ -56,7 +57,7 @@ router.post("/signup", (req, res) => {
         // Create a user and save it in the database
         return User.create({
           email,
-          name: username,
+          name,
           password: hashedPassword,
         });
       })
@@ -79,9 +80,9 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
-  const { username, password } = req.body;
+  const { name, password } = req.body;
 
-  if (!username) {
+  if (!name) {
     return res
       .status(400)
       .json({ errorMessage: "Please provide your username." });
@@ -96,7 +97,7 @@ router.post("/login", (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ name: username })
+  User.findOne({ name})
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
