@@ -75,9 +75,6 @@ router.delete('/places/:placeId', (req, res, next) => {
     }
 
     Place.findByIdAndRemove(placeId)
-        .then(deteletedPlace => {
-            return Place.deleteMany({ _id: { $in: deteletedPlace.trips } });
-        })
         .then(() => res.json({ message: `Place with id ${placeId} & all associated trips were removed successfully.` }))
         .catch(error => res.status(500).json(error));
 });

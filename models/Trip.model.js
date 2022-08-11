@@ -8,13 +8,7 @@ const tripSchema = new Schema({
   },
   description: String,
   days: Number,
-  place: [{ 
-    type: Schema.Types.ObjectId, ref: 'Place' 
-  }],
-
-
-
-  // owner will be added later on
+  location: String,
 });
 
 module.exports = model('Trip', tripSchema);
